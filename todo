@@ -1,0 +1,28 @@
+✦ 모든 설정이 완료되었습니다. GitHub OAuth2 인증을 위한 기본 설정이 프로젝트에 모두 적용되었습니다.
+
+  수행된 작업은 다음과 같습니다:
+
+   1. 의존성 추가: build.gradle.kts에 Spring Security 및 OAuth2 관련 라이브러리를 추가했습니다.
+   2. 설정 파일 수정: application.properties에 GitHub OAuth2 연동에 필요한 설정(ID, Secret)을 추가했습니다. (현재는 임시 값입니다)
+   3. 보안 설정 추가: API 경로 접근 권한과 OAuth2 로그인 방식을 정의하는 SecurityConfig.kt 파일을 생성했습니다.
+   4. 인증 확인 API 추가: 로그인 후 사용자 정보를 확인할 수 있는 AuthController.kt와 /api/user 엔드포인트를 생성했습니다.
+
+  이제 직접 하실 일이 있습니다:
+
+   1. GitHub OAuth App 생성:
+       * GitHub Developer Settings (https://github.com/settings/developers) 페이지로 이동하여 새 OAuth App을 생성하세요.
+       * Application name: 원하는 애플리케이션 이름을 입력합니다. (예: My Kotlin App)
+       * Homepage URL: http://localhost:8080 을 입력합니다.
+       * Authorization callback URL: `http://localhost:8080/login/oauth2/code/github` 를 정확히 입력해야 합니다.
+
+   2. Client ID 및 Secret 설정:
+       * OAuth App 생성이 완료되면 Client ID가 발급됩니다. "Generate a new client secret" 버튼을 눌러 Client Secret도 생성하세요.
+       * src/main/resources/application.properties 파일을 열어 your-github-client-id와 your-github-client-secret 값을 방금 발급받은 값으로 교체하세요.
+
+   3. 애플리케이션 실행 및 테스트:
+       * 애플리케이션을 실행합니다.
+       * 웹 브라우저에서 http://localhost:8080/users 와 같이 보호된 경로로 접속해보세요. GitHub 로그인 페이지로 자동 리디렉션될 것입니다.
+       * 로그인 후, 다시 애플리케이션으로 돌아오면 정상적으로 API 결과(빈 배열 [])가 보여야 합니다.
+       * 그다음 http://localhost:8080/api/user 로 접속하면 본인의 GitHub 사용자 정보가 JSON 형태로 출력되는 것을 확인할 수 있습니다.
+
+  여기까지 진행해보시고, 문제가 발생하면 알려주세요. 성공적으로 인증 기능이 구현되면 다음 단계인 Next.js 연동에 대해 논의하겠습니다.
